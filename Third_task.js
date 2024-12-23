@@ -36,10 +36,33 @@ function asyncFilter(array, asyncCallback, signal) {
     });
   }
   
+  function isLevelGreaterThanTenAsync(monster, callback) {
+    setTimeout(() => {
+      if (monster.level < 0) {
+        return callback(
+          new Error(`Монстр ${monster.name} має негативний рівень (${monster.level})`),
+          null
+        );
+      }
+  
+      callback(null, monster.level > 10);
+    }, 1000);
+  }
+  
+  const monstersArray = [
+    { name: "Goblin", level: 5 },
+    { name: "Dragon", level: 20 },
+    { name: "Troll", level: 8 },
+    { name: "Phoenix", level: 25 },
+    { name: "Slime", level: 3 },
+    { name: "Orc", level: 15 },
+    { name: "Wolf", level: 7 },
+  ];
+  
   const controller = new AbortController();
   const signal = controller.signal;
   
-  setTimeout(() => controller.abort(), 3000); // Автоматичне скасування через 3 секунди
+  setTimeout(() => controller.abort(), 3000);
   
   asyncFilter(monstersArray, isLevelGreaterThanTenAsync, signal)
     .then((results) => {
