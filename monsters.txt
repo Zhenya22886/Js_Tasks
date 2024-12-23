@@ -1,0 +1,7 @@
+Goblin
+Dragon
+Troll
+Phoenix
+Slime
+Hydra
+Minotaur
